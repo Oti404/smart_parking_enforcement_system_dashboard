@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Data } from '../../core/services/data';
 
@@ -10,11 +10,12 @@ import { Data } from '../../core/services/data';
 })
 export class Dashboard implements OnInit {
   private dataService = inject(Data);
-  stats: any = null;
+  
+  stats = signal<any>(null);
 
   ngOnInit(): void {
     this.dataService.getStats().subscribe({
-      next: (res) => this.stats = res,
+      next: (res) => this.stats.set(res), 
       error: (err) => console.error('Failed to load dashboard stats', err)
     });
   }

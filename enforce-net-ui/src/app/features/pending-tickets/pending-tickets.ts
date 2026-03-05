@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core'; // Adaugă signal
 import { CommonModule } from '@angular/common';
 import { Data } from '../../core/services/data';
 import { PendingTicket } from '../../core/models/ticket.model';
@@ -13,22 +13,20 @@ import { PendingTicket } from '../../core/models/ticket.model';
 export class PendingTickets implements OnInit {
   private dataService = inject(Data);
   
-  tickets: PendingTicket[] = [];
-  selectedTicket: PendingTicket | null = null;
+  // Transformăm variabilele simple în Signals
+  tickets = signal<PendingTicket[]>([]);
+  selectedTicket = signal<PendingTicket | null>(null);
 
   ngOnInit(): void {
     this.fetchTickets();
   }
 
-  /**
-   * Fetches tickets using the Data service container.
-   */
   fetchTickets(): void {
     this.dataService.getTickets().subscribe({
       next: (data) => {
-        this.tickets = data;
-        if (this.tickets.length > 0) {
-          this.selectedTicket = this.tickets[0];
+        this.tickets.set(data); // Setăm valoarea signal-ului
+        if (data.length > 0) {
+          this.selectedTicket.set(data[0]);
         }
       },
       error: (err) => console.error('Data access error:', err)
@@ -36,18 +34,18 @@ export class PendingTickets implements OnInit {
   }
 
   selectTicket(ticket: PendingTicket): void {
-    this.selectedTicket = ticket;
+    this.selectedTicket.set(ticket);
   }
 
   confirmTicket(id: string): void {
-    this.tickets = this.tickets.filter(t => t.id !== id);
-    this.selectedTicket = this.tickets.length > 0 ? this.tickets[0] : null;
-    // TODO: Implement API call via Data service to persist confirmation
+    const updatedTickets = this.tickets().filter(t => t.id !== id);
+    this.tickets.set(updatedTickets);
+    this.selectedTicket.set(updatedTickets.length > 0 ? updatedTickets[0] : null);
   }
 
   rejectTicket(id: string): void {
-    this.tickets = this.tickets.filter(t => t.id !== id);
-    this.selectedTicket = this.tickets.length > 0 ? this.tickets[0] : null;
-    // TODO: Implement API call via Data service to persist rejection
+    const updatedTickets = this.tickets().filter(t => t.id !== id);
+    this.tickets.set(updatedTickets);
+    this.selectedTicket.set(updatedTickets.length > 0 ? updatedTickets[0] : null);
   }
 }

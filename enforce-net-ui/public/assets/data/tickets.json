@@ -1,0 +1,22 @@
+[
+  {
+    "id": "SCAN-001",
+    "licensePlate": "B-123-ABC",
+    "confidence": 98.5,
+    "timestamp": "2026-03-05T14:22:00Z",
+    "location": { "address": "Strada Victoriei 10, București", "lat": 44.4396, "lng": 26.0963 },
+    "images": { "fullFrameUrl": "assets/mock-car1.png" },
+    "violationType": "No Parking Zone",
+    "priority": "HIGH"
+  },
+  {
+    "id": "SCAN-002",
+    "licensePlate": "CJ-99-WXYZ",
+    "confidence": 82.1,
+    "timestamp": "2026-03-05T14:15:00Z",
+    "location": { "address": "Piața Unirii, Cluj-Napoca", "lat": 46.7712, "lng": 23.5897 },
+    "images": { "fullFrameUrl": "assets/mock-car2.png" },
+    "violationType": "Expired Permit",
+    "priority": "NORMAL"
+  }
+]
