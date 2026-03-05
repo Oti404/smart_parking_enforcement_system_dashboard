@@ -1,0 +1,15 @@
+# 1. Creăm proiectul Angular (apăsăm Enter la întrebările implicite)
+ng new enforce-net-ui --routing --style=scss
+
+# 2. Intrăm în folderul proiectului
+cd enforce-net-ui
+
+npm install -D tailwindcss@3 postcss autoprefixer
+
+npx tailwindcss init
+
+ng generate component core/layout
+ng generate component features/login
+ng generate component features/dashboard
+ng generate component features/pending-tickets
+

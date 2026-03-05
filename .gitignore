@@ -1,0 +1,29 @@
+# Dependințe Node
+node_modules/
+
+# Fișiere de build și cache Angular
+dist/
+.angular/
+out-tsc/
+
+# Fișiere de testare
+coverage/
+
+# Fișiere de log
+npm-debug.log
+yarn-error.log
+*.log
+
+# Setări specifice editoarelor de cod (IDE)
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Fișiere de sistem
+.DS_Store
+Thumbs.db
+
+
+#Otniel's files
+*.otniel
